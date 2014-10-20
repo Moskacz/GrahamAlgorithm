@@ -10,7 +10,7 @@
 #define __GrahamAlgorithm__PointGenerator__
 
 #include <stdio.h>
-#include <list>
+#include <vector>
 #include "Point.h"
 
 using namespace std;
@@ -20,7 +20,7 @@ private:
 	int amount;
 public:
 	PointGenerator(int amount);
-	list<Point> generate();
+	vector<Point> generate();
 };
 
 #endif /* defined(__GrahamAlgorithm__PointGenerator__) */

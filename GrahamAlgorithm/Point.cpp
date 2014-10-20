@@ -29,17 +29,15 @@ double Point::getY() const {
 	return y;
 }
 
+double Point::getCosinus() const {
+	return this->cosinusValue;
+}
+
+void Point::setCosinus(double value) {
+	this->cosinusValue = value;
+}
+
 std::ostream& operator<<(std::ostream& outputStream, const Point& object) {
 	outputStream << "x: " << object.getX() << " y: " << object.getY();
 	return outputStream;
 }
-
-bool operator<(Point& lhs, Point& rhs) {
-	if (lhs.getX() == rhs.getX()) {
-		return lhs.getY() < rhs.getY();
-	}
-	return lhs.getX() < rhs.getX();
-}
-
-
-

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EE26A551-3CE0-4FC3-AA2F-AC19C0F932BA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GrahamAlgorithm</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2535FEBCAB1A59EE05B6283FA4A6530C0194B6DE</key>
+		<string>https://github.com/Moskacz/GrahamAlgorithm.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>GrahamAlgorithm.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2535FEBCAB1A59EE05B6283FA4A6530C0194B6DE</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Moskacz/GrahamAlgorithm.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2535FEBCAB1A59EE05B6283FA4A6530C0194B6DE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2535FEBCAB1A59EE05B6283FA4A6530C0194B6DE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GrahamAlgorithm</string>
+		</dict>
+	</array>
+</dict>
+</plist>

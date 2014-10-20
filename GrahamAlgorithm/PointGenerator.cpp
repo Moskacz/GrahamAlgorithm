@@ -12,13 +12,12 @@ PointGenerator::PointGenerator(int amount) {
 	this->amount = amount;
 }
 
-
-list<Point> PointGenerator::generate() {
-	list<Point> pointList = list<Point>();
+vector<Point> PointGenerator::generate() {
+	vector<Point> pointVector = vector<Point>();
 	int i = 0;
 	while (i < amount) {
-		pointList.push_back(Point(rand() % 10, rand() % 10));
+		pointVector.push_back(Point(rand() % 100, rand() % 100));
 		i++;
 	}
-	return pointList;
+	return pointVector;
 }
