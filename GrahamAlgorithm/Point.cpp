@@ -13,6 +13,7 @@
 Point::Point(double x, double y) {
 	this->x = x;
 	this->y = y;
+	this->cosinusValue = 0;
 }
 
 double Point::distanceToPoint(Point other) {
@@ -38,6 +39,6 @@ void Point::setCosinus(double value) {
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Point& object) {
-	outputStream << "x: " << object.getX() << " y: " << object.getY();
+	outputStream << "x: " << object.getX() << " y: " << object.getY() << " cos: " << object.getCosinus();
 	return outputStream;
 }
