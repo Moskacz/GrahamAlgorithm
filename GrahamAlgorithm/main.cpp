@@ -11,6 +11,8 @@
 #include "PointGenerator.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stack>
+#include <list>
 
 
 using namespace std;
@@ -31,9 +33,7 @@ struct cosinusValueSorter {
 };
 
 void calculateCosinus(Point& startingPoint, Point& point) {
-	//przeciwprostokatna
 	double hypotenuse = point.distanceToPoint(startingPoint);
-	// przyprostokątna
 	double cathetus = fabs(point.getY() - startingPoint.getY());
 	double cosinus = cathetus / hypotenuse;
 	point.setCosinus(cosinus);
@@ -45,9 +45,29 @@ void printVector(vector<Point> aVector) {
 	}
 }
 
-int main(int argc, const char * argv[]) {
+double determinant(Point firstPoint, Point secondPoint, Point thirdPoint) {
+	double a = firstPoint.getX() * secondPoint.getY()  + firstPoint.getY() * thirdPoint.getX();
+	double b = thirdPoint.getX() * secondPoint.getY() + firstPoint.getX() * thirdPoint.getY() + secondPoint.getX() * firstPoint.getY();
+	return a - b;
+}
+
+bool isTurningRight(stack<Point> stack, Point startingPoint) {
+	Point first = stack.top();
+	stack.pop();
+	Point second = stack.top();
+	stack.push(first);
 	
-	cout << "Hello, World!\n";
+	return determinant(second, first, startingPoint) > 0;
+}
+
+Point elementFromStack(stack<Point> aStack, int index) {
+	for (int i = 0; i < index; i++) {
+		aStack.pop();
+	}
+	return aStack.top();
+}
+
+int main(int argc, const char * argv[]) {
 	
 	PointGenerator generator = PointGenerator(10);
 	vector<Point> pointVector = generator.generate();
@@ -62,9 +82,36 @@ int main(int argc, const char * argv[]) {
 	}
 	
 	sort(pointVector.begin(), pointVector.end(), cosinusValueSorter());
-	printVector(pointVector);
 	
+	stack<Point> pointStack = stack<Point>();
+	pointStack.push(startingPoint);
+	pointStack.push(pointVector[0]);
+	pointStack.push(pointVector[1]);
 	
+	for(int index = 3; index < pointVector.size(); index++) {
+		while (isTurningRight(pointStack, pointVector[index])) {
+			pointStack.pop();
+		}
+		pointStack.push(pointVector[index]);
+	}
+	
+	cout << "Rozwiazanie: " << endl;
+	while (!pointStack.empty()) {
+		cout << pointStack.top() << endl;
+		pointStack.pop();
+	}
 	
 	return 0; 
 }
+
+
+
+
+
+
+
+
+
+
+
+
