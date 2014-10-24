@@ -27,7 +27,7 @@ double Point::getX() const {
 }
 
 double Point::getY() const {
-	return y;
+	return this->y;
 }
 
 double Point::getCosinus() const {

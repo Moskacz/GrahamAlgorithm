@@ -16,7 +16,7 @@ vector<Point> PointGenerator::generate() {
 	vector<Point> pointVector = vector<Point>();
 	int i = 0;
 	while (i < amount) {
-		pointVector.push_back(Point(rand() % 100, rand() % 100));
+		pointVector.push_back(Point(rand() % 10, rand() % 10));
 		i++;
 	}
 	return pointVector;
