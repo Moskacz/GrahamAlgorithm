@@ -14,7 +14,6 @@
 #include <stack>
 #include <list>
 
-
 using namespace std;
 
 struct coordinatesSorter {
@@ -28,15 +27,19 @@ struct coordinatesSorter {
 
 struct cosinusValueSorter {
 	inline bool operator() (const Point& lhs, const Point& rhs) {
+		if (lhs.getCosinus() == rhs.getCosinus()) {
+			return lhs.getDistanceToStartingPoint() < rhs.getDistanceToStartingPoint();
+		}
 		return lhs.getCosinus() > rhs.getCosinus();
 	}
 };
 
 void calculateCosinus(Point& startingPoint, Point& point) {
 	double hypotenuse = startingPoint.distanceToPoint(point);
+	point.setDistanceToStartingPoint(hypotenuse);
 	
 	if (hypotenuse == 0) {
-		point.setCosinus(-1);
+		point.setCosinus(1);
 		return;
 	}
 	
@@ -44,61 +47,52 @@ void calculateCosinus(Point& startingPoint, Point& point) {
 	double cosinus = cathetus / hypotenuse;
 	point.setCosinus(cosinus);
 	
-	
+	//kat rozwarty
 	if (point.getX() < startingPoint.getX()) {
 		double sinVal = fabs(point.getX() - startingPoint.getX()) / hypotenuse;
 		point.setCosinus(-sinVal);
 	}
 }
 
-void printVector(vector<Point> aVector) {
+void printVector(vector<Point> &aVector) {
 	for (vector<Point>::iterator iterator = aVector.begin(); iterator != aVector.end(); iterator++) {
 		cout << *iterator << endl;
 	}
 }
 
-double determinant(Point firstPoint, Point secondPoint, Point thirdPoint) {
-	double a = firstPoint.getX() * secondPoint.getY()  + firstPoint.getY() * thirdPoint.getX() + secondPoint.getX() * thirdPoint.getY();
+double determinant(Point &firstPoint, Point &secondPoint, Point &thirdPoint) {
+	double a = firstPoint.getX() * secondPoint.getY() + firstPoint.getY() * thirdPoint.getX() + secondPoint.getX() * thirdPoint.getY();
 	double b = thirdPoint.getX() * secondPoint.getY() + firstPoint.getX() * thirdPoint.getY() + secondPoint.getX() * firstPoint.getY();
 	return a - b;
 }
 
-bool isTurningRight(stack<Point> stack, Point startingPoint) {
-	Point first = stack.top();
-	stack.pop();
-	Point second = stack.top();
-	stack.push(first);
+bool isTurningRight(stack<Point> stack, Point &startingPoint) {
+	if (stack.size() < 2)
+		return false;
 	
-	return determinant(second, first, startingPoint) < 0;
+	Point top = stack.top();
+	stack.pop();
+	Point nextToTop = stack.top();
+	
+	return determinant(nextToTop, top, startingPoint) <= 0;
 }
 
 int main(int argc, const char * argv[]) {
 	vector<Point> pointVector = vector<Point>();
 	
-	int pointsCount = 0;
-	cout << "Podaj liczbe punktow: ";
-	cin >> pointsCount;
+	Point points[] = {Point(0,0), Point(1,0), Point(2,0), Point(3,0),
+										Point(0,1), Point(1,1), Point(2,1), Point(3,1),
+										Point(0,2), Point(1,2), Point(2,2), Point(3,2)};
 	
-	double x;
-	double y;
-	
-	for (int i = 0; i < pointsCount; i++) {
-		cout << "Podaj wspolrzedna x: ";
-		cin >> x;
-		cout << "Podaj wspolrzedna y: ";
-		cin >> y;
-		cout << "Zapisuje punkt o wspolrzednych (" << x << "," << y <<  ")" << endl;
-		pointVector.push_back(Point(x, y));
+	for (int i = 0; i < sizeof(points)/sizeof(Point); i++) {
+		pointVector.push_back(points[i]);
 	}
 	
 	sort(pointVector.begin(), pointVector.end(), coordinatesSorter());
-	
 	for(vector<Point>::iterator iterator = pointVector.begin(); iterator != pointVector.end(); iterator++) {
 		calculateCosinus(pointVector.front(), *iterator);
 	}
-	
-	sort(pointVector.begin() + 1, pointVector.end(), cosinusValueSorter());
-	printVector(pointVector);
+	sort(pointVector.begin(), pointVector.end(), cosinusValueSorter());
 	
 	stack<Point> pointStack;
 	pointStack.push(pointVector[0]);
@@ -111,6 +105,7 @@ int main(int argc, const char * argv[]) {
 		}
 		pointStack.push(pointVector[index]);
 	}
+	
 	
 	cout << "Rozwiazanie: " << endl;
 	while (!pointStack.empty()) {

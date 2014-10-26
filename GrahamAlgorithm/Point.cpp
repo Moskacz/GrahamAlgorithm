@@ -14,6 +14,7 @@ Point::Point(double x, double y) {
 	this->x = x;
 	this->y = y;
 	this->cosinusValue = 0;
+	this->distanceToStartingPoint = 0;
 }
 
 double Point::distanceToPoint(Point other) {
@@ -34,11 +35,19 @@ double Point::getCosinus() const {
 	return this->cosinusValue;
 }
 
+double Point::getDistanceToStartingPoint() const {
+	return this->distanceToStartingPoint;
+}
+
 void Point::setCosinus(double value) {
 	this->cosinusValue = value;
 }
 
+void Point::setDistanceToStartingPoint(double value) {
+	this->distanceToStartingPoint = value;
+}
+
 std::ostream& operator<<(std::ostream& outputStream, const Point& object) {
-	outputStream << "x: " << object.getX() << " y: " << object.getY() << " cos: " << object.getCosinus();
+	outputStream << "{" << object.getX() << "," << object.getY() << "} cos: " << object.getCosinus();
 	return outputStream;
 }
