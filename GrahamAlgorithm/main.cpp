@@ -73,9 +73,23 @@ bool isTurningRight(stack<Point> stack, Point startingPoint) {
 }
 
 int main(int argc, const char * argv[]) {
+	vector<Point> pointVector = vector<Point>();
 	
-	PointGenerator generator = PointGenerator(10);
-	vector<Point> pointVector = generator.generate();
+	int pointsCount = 0;
+	cout << "Podaj liczbe punktow: ";
+	cin >> pointsCount;
+	
+	double x;
+	double y;
+	
+	for (int i = 0; i < pointsCount; i++) {
+		cout << "Podaj wspolrzedna x: ";
+		cin >> x;
+		cout << "Podaj wspolrzedna y: ";
+		cin >> y;
+		cout << "Zapisuje punkt o wspolrzednych (" << x << "," << y <<  ")" << endl;
+		pointVector.push_back(Point(x, y));
+	}
 	
 	sort(pointVector.begin(), pointVector.end(), coordinatesSorter());
 	
