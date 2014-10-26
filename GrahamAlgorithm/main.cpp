@@ -60,21 +60,19 @@ void printVector(vector<Point> &aVector) {
 	}
 }
 
-double determinant(Point &firstPoint, Point &secondPoint, Point &thirdPoint) {
+double determinantForPoints(Point &firstPoint, Point &secondPoint, Point &thirdPoint) {
 	double a = firstPoint.getX() * secondPoint.getY() + firstPoint.getY() * thirdPoint.getX() + secondPoint.getX() * thirdPoint.getY();
 	double b = thirdPoint.getX() * secondPoint.getY() + firstPoint.getX() * thirdPoint.getY() + secondPoint.getX() * firstPoint.getY();
 	return a - b;
 }
 
-bool isTurningRight(stack<Point> stack, Point &startingPoint) {
-	if (stack.size() < 2)
-		return false;
-	
+bool shouldPopElementFromStack(stack<Point> &stack, Point point) {
 	Point top = stack.top();
 	stack.pop();
 	Point nextToTop = stack.top();
-	
-	return determinant(nextToTop, top, startingPoint) <= 0;
+	stack.push(top);
+	double det = determinantForPoints(nextToTop, top, point);
+	return det <= 0;
 }
 
 int main(int argc, const char * argv[]) {
@@ -89,19 +87,28 @@ int main(int argc, const char * argv[]) {
 	}
 	
 	sort(pointVector.begin(), pointVector.end(), coordinatesSorter());
+	Point startingPoint = pointVector.front();
+	
 	for(vector<Point>::iterator iterator = pointVector.begin(); iterator != pointVector.end(); iterator++) {
-		calculateCosinus(pointVector.front(), *iterator);
+		calculateCosinus(startingPoint, *iterator);
 	}
+	
 	sort(pointVector.begin(), pointVector.end(), cosinusValueSorter());
+	printVector(pointVector);
 	
 	stack<Point> pointStack;
-	pointStack.push(pointVector[0]);
-	pointStack.push(pointVector[1]);
-	pointStack.push(pointVector[2]);
+	pointStack.push(pointVector.at(0));
+	pointStack.push(pointVector.at(1));
+	pointStack.push(pointVector.at(2));
+	
+	cout << pointVector.size() << endl;
 	
 	for(int index = 3; index < pointVector.size(); index++) {
-		while (isTurningRight(pointStack, pointVector[index])) {
+		while (shouldPopElementFromStack(pointStack, pointVector.at(index))) {
 			pointStack.pop();
+			if ((Point)pointStack.top() == startingPoint) {
+				break;
+			}
 		}
 		pointStack.push(pointVector[index]);
 	}

@@ -51,3 +51,7 @@ std::ostream& operator<<(std::ostream& outputStream, const Point& object) {
 	outputStream << "{" << object.getX() << "," << object.getY() << "} cos: " << object.getCosinus();
 	return outputStream;
 }
+
+bool Point::operator==(const Point &another) {
+	return this->x == another.getX() && this->y == another.getY();
+}

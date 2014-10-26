@@ -28,6 +28,7 @@ public:
 	void setCosinus(double value);
 	void setDistanceToStartingPoint(double value);
 	friend std::ostream& operator<<(std::ostream& os, const Point& point);
+	bool operator==(const Point& another);
 };
 
 
