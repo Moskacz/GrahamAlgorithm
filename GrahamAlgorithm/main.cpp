@@ -92,16 +92,12 @@ int main(int argc, const char * argv[]) {
 	for(vector<Point>::iterator iterator = pointVector.begin(); iterator != pointVector.end(); iterator++) {
 		calculateCosinus(startingPoint, *iterator);
 	}
-	
 	sort(pointVector.begin(), pointVector.end(), cosinusValueSorter());
-	printVector(pointVector);
 	
 	stack<Point> pointStack;
 	pointStack.push(pointVector.at(0));
 	pointStack.push(pointVector.at(1));
 	pointStack.push(pointVector.at(2));
-	
-	cout << pointVector.size() << endl;
 	
 	for(int index = 3; index < pointVector.size(); index++) {
 		while (shouldPopElementFromStack(pointStack, pointVector.at(index))) {
@@ -112,7 +108,6 @@ int main(int argc, const char * argv[]) {
 		}
 		pointStack.push(pointVector[index]);
 	}
-	
 	
 	cout << "Rozwiazanie: " << endl;
 	while (!pointStack.empty()) {
